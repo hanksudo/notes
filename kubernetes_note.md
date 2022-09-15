@@ -1,5 +1,95 @@
 # Kubernetes note
 
+## Installation
+
+```bash
+brew install kubectl
+```
+
+## Usage
+
+```bash
+kubectl config get-contexts
+kubectl config use-context CONTEXT_NAME
+
+kubectl get all
+kubectl get all -n $NAMESPACE
+
+# List all namespaces
+kubectl get namespace
+
+# List pods
+kubectl get pods --all-namespaces
+kubectl get pods -n $NAMESPACE
+
+# Services
+kubectl get svc
+
+# Ingress
+kubectl get ingress
+kubectl get ingress -n $NAMESPACE
+kubectl describe ingress $INGRESS_NAME -n $NAMESPACE
+
+# Logs
+kubectl logs -f -n $NAMESPACE services/$SERVICE_NAME
+kubectl logs -f -l app.kubernetes.io/name=$LABEL_NAME -n $NAMESPACE
+
+# execute command remote
+kubectl exec -n postgres postgres-0 -- df -h
+
+# Force to delete Running pods with namespase
+kubectl get pods -n $NAMESPACE --field-selector 'status.phase!=Running' -o json | kubectl delete -f -
+
+# Delete job
+kubectl delete job $JOB_NAME -n $NAMESPACE
+
+# Porting forward
+kubectl port-forward --namespace $NAMESPACE services/$SERVICE_NAME 8080:8080
+
+# Porting forward by kubefwd
+# https://github.com/txn2/kubefwd
+# > brew install txn2/tap/kubefwd
+sudo kubefwd services -n $NAMESPACE
+
+# Check cronjobs and jobs
+kubectl get cronjobs -n $NAMESPACE
+kubectl get jobs -n $NAMESPACE
+
+# Check DNS pod is running
+kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
+
+# rollout status
+kubectl rollout status deployment/$DEPLOYMENT_NAME -n $NAMESPACE
+
+# rollout history
+kubectl rollout history deployment/$DEPLOYMENT_NAME -n $NAMESPACE
+
+# rollback
+kubectl rollout undo deployment/$DEPLOYMENT_NAME -n $NAMESPACE
+
+# secret
+kubectl get secret
+kubectl get secret -n $NAMESPACE
+
+# events
+kubectl get events
+
+# Show deployments
+kubectl get deploy -n $NAMESPACE
+
+# Deploy image
+kubectl set image deployment $DEPLOYMENT_NAME $CONTAINER_NAME=$IMAGE_PATH:latest -n $NAMESPACE
+
+# Wait unit pod ready (example)
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=120s
+
+# Check apiVersion
+kubectl api-resources
+```
+
 ## Minikube
 
 minikube implements a local Kubernetes cluster on macOS, Linux, and Windows.
