@@ -148,3 +148,7 @@ kubectl label pods myapp-pod version=latest
 # Run a alpine for debug same cluster
 kubectl run -i --tty alpine --image=alpine --restart=Never -- sh
 ```
+
+## References
+
+- [kubectl Cheat Sheet | Kuberneteskubectl Cheat Sheet | Kubernetes](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
