@@ -2,6 +2,13 @@
 
 [aws-cli - examples](https://github.com/aws/aws-cli/tree/develop/awscli/examples)
 
+## Getting started
+
+```bash
+brew install awscli
+aws configure
+```
+
 ## STS - AWS Security Token Service
 
 ```bash
@@ -26,8 +33,8 @@ aws iam list-users --output json | jq -r '.Users[].Arn'
 
 ```bash
 # Elastic IPs
-aws ec2 describe-addresses| jq '.'
-aws ec2 describe-addresses| jq '.Addresses[] | {PublicIp,PrivateIpAddress,Tags}'
+aws ec2 describe-addresses | jq '.'
+aws ec2 describe-addresses | jq '.Addresses[] | {PublicIp,PrivateIpAddress,Tags}'
 
 aws ec2 describe-instances | jq '.Reservations[].Instances[] | {InstanceId,InstanceType}'
 
@@ -71,7 +78,6 @@ aws s3 rm s3://$BUCKET --recursive --exclude "*.jpg" --exclude "*.png"  --exclud
 # Update static files
 aws s3 sync static/data s3://$BUCKET/data --delete --region ap-northeast-1 --acl public-read --cache-control max-age=604800
 ```
-
 
 ## References
 

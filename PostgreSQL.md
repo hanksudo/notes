@@ -2,7 +2,7 @@
 
 ## Commands
 
-<https://www.postgresql.org/docs/9.5/static/reference-client.html>
+<https://www.postgresql.org/docs/current/reference-client.html>
 
 ### Show work memory
 
@@ -29,7 +29,9 @@ psql -U postgres -h locahlost -d db
 ### backup database
 
 ```bash
-pg_dump db_name > file
+pg_dump {db_name} > file
+pg_dump {db_name} --data-only
+pg_dump {db_name} --schema-only
 ```
 
 ### restore
