@@ -9,7 +9,9 @@ npm install -g vercel
 ## Backup
 
 ```zsh
-vercel env pull
+vercel env pull .env.production.bak --environment production
+vercel env pull .env.development.bak --environment development
+vercel env pull .env.preview.bak --environment preview
 ```
 
 ## Add environment variables
