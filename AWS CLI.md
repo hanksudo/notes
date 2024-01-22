@@ -7,6 +7,7 @@
 ```bash
 brew install awscli
 aws configure
+aws configure get region
 ```
 
 ## STS - AWS Security Token Service
@@ -77,6 +78,24 @@ aws s3 rm s3://$BUCKET --recursive --exclude "*.jpg" --exclude "*.png"  --exclud
 
 # Update static files
 aws s3 sync static/data s3://$BUCKET/data --delete --region ap-northeast-1 --acl public-read --cache-control max-age=604800
+```
+
+## ECS
+
+```zsh
+# Force new deployment
+aws ecs update-service --cluster <CLUSTER NAME> --service <SERVICE NAME> --force-new-deployment
+```
+
+## ECR
+
+```zsh
+# Add tag
+MANIFEST=$(aws ecr batch-get-image --repository-name <REPO NAME> --image-ids imageTag=latest --output json | jq --raw-output --join-output '.images[0].imageManifest')
+aws ecr put-image --repository-name <REPO NAME> --image-tag new-tag --image-manifest "$MANIFEST"
+
+# Remove tag
+aws ecr batch-delete-image --repository-name <REPO NAME> --image-ids imageTag=new-tag
 ```
 
 ## References

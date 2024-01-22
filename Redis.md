@@ -20,6 +20,16 @@ redis-dump-go -host localhost -port 6379 > dump.resp
 redis-cli -h localhost -p 6379 --pipe < dump.resp
 ```
 
+## Commands
+
+```bash
+# list all keys
+keys "*"
+
+get "key"
+mget "key"
+```
+
 ## Reference
 
 - [Redis Explained - An in-depth tutorial](https://architecturenotes.co/redis/)

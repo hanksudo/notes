@@ -44,8 +44,8 @@ git push origin :refs/tags/tag_name
 git remote add upstream /url/to/original/repo
 git fetch upstream
 git checkout master
-git reset --hard upstream/master  
-git push origin master --force 
+git reset --hard upstream/master
+git push origin master --force
 ```
 
 ### Create and apply patch (with images)
@@ -53,4 +53,13 @@ git push origin master --force
 ```bash
 git diff-index 06e5c52 --binary > patch.diff
 git apply patch.diff
+```
+
+## LFS
+
+```bash
+git lfs install
+git lfs fetch --all
+git lfs push --all
+git lfs track
 ```
